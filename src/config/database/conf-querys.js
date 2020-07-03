@@ -9,7 +9,7 @@ const useDb = () => {
 //Crete table users
 const createTableUsers = () => {
     return `CREATE TABLE IF NOT EXISTS users (
-        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        user_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         user_name VARCHAR(50) UNIQUE NOT NULL,
         user_email VARCHAR(30) UNIQUE NOT NULL,
         user_full_name VARCHAR(70) NOT NULL,
@@ -54,8 +54,6 @@ const createTableOrderProducts = () => {
         REFERENCES products(product_id)
     );`
 }
-
-
 
 
 module.exports = {

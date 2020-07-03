@@ -5,11 +5,10 @@ const {
     createTableOrders,
     createTableProducts,
     createTableOrderProducts
-} = require("./querys");
+} = require("./conf-querys");
 
 const createTables = (...params) => {
     for (let i = 0; i < params.length; i++) {
-        mySqlSequelize.query(params[i](), { raw: true });
         mySqlSequelize.query(params[i](), { raw: true });
     }
 }
@@ -23,4 +22,4 @@ const startDB = () => {
 }
 
 
-module.exports = { startDB }
+startDB();
