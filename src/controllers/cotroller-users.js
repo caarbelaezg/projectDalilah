@@ -25,8 +25,10 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid user or pass" });
     }
 
-    admin = result[0].user_rol;
-    const payload = { user, pass, admin };
+    const admin = result[0].user_rol;
+    const user_id = result[0].user_id;
+
+    const payload = { user_id, user, pass, admin };
     const jwtToken = jwt.sign(payload, config.JwtSecretKey, {
       expiresIn: config.JwtExpiresToken,
     });
@@ -42,7 +44,9 @@ const listUsers = async (req, res) => {
     const result = await mySqlSequelize.query(userQuerys.listUsers, {
       type: QueryTypes.SELECT,
     });
-    return res.status(200).json({ users: result.map((data) => data.user_name) });
+    return res
+      .status(200)
+      .json({ users: result.map((data) => data.user_name) });
   } catch (error) {
     return res.status(401).json({ message: error });
   }
@@ -79,15 +83,4 @@ const createUser = async (req, res) => {
   }
 };
 
-const listProducts = async (req, res) => {
-  try {
-    const result = await mySqlSequelize.query(userQuerys.listProducts, {
-      type: QueryTypes.SELECT,
-    });    
-    return res.status(200).json({ products: result.map((data) => data.product_name) });
-  } catch (error) {
-    return res.status(401).json({ message: error });
-  }
-};
-
-module.exports = { login, listUsers, createUser, listProducts };
+module.exports = { login, listUsers, createUser };

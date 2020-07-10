@@ -22,13 +22,14 @@ const createTableUsers = () => {
 
 const createTableOrders = () => {
     return `CREATE TABLE IF NOT EXISTS orders (
-        order_status ENUM('new','confirmed','making','sending','cancelled','sent') DEFAULT( 'new'),
+        order_status ENUM('new','confirmed','making','delivered','cancelled') DEFAULT('new'),
         order_date VARCHAR(15) NOT NULL,    
         order_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         order_description VARCHAR(120) NOT NULL,
         order_pay_method VARCHAR(15) NOT NULL,
         order_price INT NOT NULL,
         user_id INT NOT NULL,
+        user_name VARCHAR(50) NOT NULL,
         CONSTRAINT FK_user_order FOREIGN KEY (user_id)
         REFERENCES users(user_id)   
     );`
