@@ -4,8 +4,9 @@ const { mySqlSequelize } = require("../database/mysql-db");
 const { productQuerys } = require("../database/products-querys");
 
 const existProduct = async (req, res, next) => {
-  const { order_description } = req.body;
+  let { order_description } = req.body;
   try {
+    let ids = {};
     let resp;
     for (let i = 0; i < order_description.length; i++) {
       let actualProduct = order_description[i].product;
@@ -15,15 +16,16 @@ const existProduct = async (req, res, next) => {
         },
         type: QueryTypes.SELECT,
       });
-      if (typeof(resp[0]) !== "object") {
-        return res
-          .status(401)
-          .json({
-            message: `El producto ${actualProduct} no existe`,
-          });
+      if (typeof resp[0] !== "object") {
+        return res.status(401).json({
+          message: `El producto ${actualProduct} no existe`,
+        });
+      } else {
+        order_description[i].product_id = resp[0].product_id.toString();
       }
     }
-    return res.status(200).json({ message: resp[0].product_id });
+    res.order_description = order_description;
+    next();
   } catch (error) {
     return res.status(401).json({ message: error.message });
   }

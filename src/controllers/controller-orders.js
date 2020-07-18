@@ -13,9 +13,10 @@ const ordersQuerys = require("../config/database/orders-querys");
 // ----------- Controlers related to orders ----------- //
 const generateOrder = async (req, res) => {
   //Get values to insert
-  const { order_description, order_pay_method } = req.body;
+  const { order_pay_method } = req.body;
   const user_id = res.decoded.user_id;
   const user_name = res.decoded.user;
+  const order_description = res.order_description;
   const hour = moment().format("h:mm a");
   const { formatedOrder, totalPrice } = formatOrder(order_description);
 
@@ -65,7 +66,7 @@ const updateOrder = async (req, res) => {
         order_id: order_id,
         order_status: status,
       },
-      type: QueryTypes.UPDATE
+      type: QueryTypes.UPDATE,
     });
     return res.status(200).json();
   } catch (error) {
@@ -73,4 +74,16 @@ const updateOrder = async (req, res) => {
   }
 };
 
-module.exports = { generateOrder, updateOrder };
+const getMyOrders = async (req, res) => {
+  const user_name = res.decoded.user;
+  try {
+    const result = await mySqlSequelize.query(orderQuerys.getMyOrders, {
+      replacements: {
+        user_name: user_name,
+      },
+      type: QueryTypes.SELECT,
+    });
+    return res.status(200).json({ orders: result });
+  } catch (error) {}
+};
+module.exports = { generateOrder, updateOrder, getMyOrders };

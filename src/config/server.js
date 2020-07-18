@@ -37,6 +37,11 @@ app.post("/api/v1/dalilah_resto/users/registerUser", authMidd, controllerUsers.c
 //List products -- all
 app.get("/api/v1/dalilah_resto/products/listProducts", authMidd, controllerProducts.listProducts);
 
+app.delete ("/api/v1/dalilah_resto/products/removeProducts", authMidd, isAdmin, controllerProducts.deleteProducts);
+
+app.post("/api/v1/dalilah_resto/products/addProducts", authMidd, isAdmin, controllerProducts.addProducts);
+
+app.put("/api/v1/dalilah_resto/products/updateProducts", authMidd, isAdmin, controllerProducts.updateProducts);
 
 
 //----------------------- Orders routes -----------------------//
@@ -45,7 +50,9 @@ app.get("/api/v1/dalilah_resto/products/listProducts", authMidd, controllerProdu
 app.post("/api/v1/dalilah_resto/orders/generateOrder", authMidd, existProduct, controllerOrders.generateOrder);
 
 //Update order state orders -- only admin
-app.patch("/api/v1/dalilah_resto/orders/updateOrder", authMidd, isAdmin, controllerOrders.updateOrder)
+app.patch("/api/v1/dalilah_resto/orders/updateOrder", authMidd, isAdmin, controllerOrders.updateOrder);
+
+app.get("/api/v1/dalilah_resto/orders/myOrders", authMidd, controllerOrders.getMyOrders);
 
 
 

@@ -6,7 +6,7 @@ const formatOrder = (arrParam) => {
     formatedOrder = formatedOrder + arrParam[i].quantity + "x" + arrParam[i].product + " ";
     totalPrice += parseInt(arrParam[i].price);
   }
-
+  formatedOrder = formatedOrder.trim();
   return { formatedOrder, totalPrice };
 };
 
