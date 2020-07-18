@@ -86,4 +86,14 @@ const getMyOrders = async (req, res) => {
     return res.status(200).json({ orders: result });
   } catch (error) {}
 };
-module.exports = { generateOrder, updateOrder, getMyOrders };
+
+const getAllOrders = async (req, res) => {
+  const user_name = res.decoded.user;
+  try {
+    const result = await mySqlSequelize.query(orderQuerys.getAllOrders, {
+      type: QueryTypes.SELECT,
+    });
+    return res.status(200).json({ orders: result });
+  } catch (error) {}
+};
+module.exports = { generateOrder, updateOrder, getMyOrders, getAllOrders };
