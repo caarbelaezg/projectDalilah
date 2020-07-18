@@ -22,7 +22,7 @@ Final project, renamed as Delila restoh Carlos in database
     ```
     npm install
     ```
--
+
 - Then execute as follows, to create tables:
     ```
     npm run dataBase
