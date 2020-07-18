@@ -15,8 +15,8 @@ const controllerOrders = require("../controllers/controller-orders")
 
 
 
-//Server definition and middlewares
 const app = express();
+
 app.use(bodyParser.json()); //global
 
 //----------------------- User routes -----------------------//
