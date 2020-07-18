@@ -1,8 +1,11 @@
+--Create database and user
 CREATE DATABASE dalila_restoh_carlos;
 CREATE USER 'nombre_usuario'@'localhost' IDENTIFIED BY 'tu_contrasena';
 GRANT ALL PRIVILEGES ON * . * TO 'nombre_usuario'@'localhost';
 FLUSH PRIVILEGES;
 USE dalila_restoh_carlos;
+
+--Seed querys
 INSERT INTO users (user_name,user_email,user_full_name, user_phone,user_address, user_password,user_rol) 
 values ('caarbelaezg','caarbelaezg@gmail.com','Carlos Arbeláez','+573215092010','calle siempreviva 123', '1234', 1 );
 
