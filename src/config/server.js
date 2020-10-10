@@ -50,6 +50,8 @@ app.get("/api/v1/dalilah_resto/orders/myOrders", authMidd, controllerOrders.getM
 
 app.get("/api/v1/dalilah_resto/orders/allOrders", authMidd, isAdmin, controllerOrders.getAllOrders);
 
+app.delete("/api/v1/dalilah_resto/orders/deleteOrder", authMidd, isAdmin, controllerOrders.deleteOrder);
+
 
 
 app.listen(config.Port, () => {

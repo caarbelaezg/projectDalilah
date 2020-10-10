@@ -84,16 +84,48 @@ const getMyOrders = async (req, res) => {
       type: QueryTypes.SELECT,
     });
     return res.status(200).json({ orders: result });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(401).json({ message: error.message });
+  }
 };
 
 const getAllOrders = async (req, res) => {
-  const user_name = res.decoded.user;
   try {
     const result = await mySqlSequelize.query(orderQuerys.getAllOrders, {
       type: QueryTypes.SELECT,
     });
     return res.status(200).json({ orders: result });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(401).json({ message: error.message });
+  }
 };
-module.exports = { generateOrder, updateOrder, getMyOrders, getAllOrders };
+
+const deleteOrder = async (req, res) => {
+  const { order_id } = req.body;
+  try {
+    await mySqlSequelize.query(orderQuerys.deleteOrder, {
+      replacements: {
+        order_id: order_id,
+      },
+      type: QueryTypes.DELETE,
+    });
+
+    await mySqlSequelize.query(orderQuerys.deleteOrder_Products, {
+      replacements: {
+        order_id: order_id,
+      },
+      type: QueryTypes.DELETE,
+    });
+
+    return res.status(200).json({code:"000",message: "Orden eliminada correctamente"});
+  } catch (error) {
+    return res.status(401).json({ message: error.message });
+  }
+};
+module.exports = {
+  generateOrder,
+  updateOrder,
+  getMyOrders,
+  getAllOrders,
+  deleteOrder,
+};

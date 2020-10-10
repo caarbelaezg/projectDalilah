@@ -5,7 +5,9 @@ const orderQuerys = {
   VALUES (:order_id, :product_id, :product_quantity)`,
   updateOrder: "UPDATE dalila_restoh_carlos.orders SET order_status = :order_status WHERE order_id = :order_id",
   getMyOrders:"SELECT * FROM dalila_restoh_carlos.orders WHERE user_name = :user_name",
-  getAllOrders:"SELECT * FROM dalila_restoh_carlos.orders"
+  getAllOrders:"SELECT * FROM dalila_restoh_carlos.orders",
+  deleteOrder:"DELETE FROM dalila_restoh_carlos.orders WHERE order_id = :order_id",
+  deleteOrder_Products:"DELETE FROM dalila_restoh_carlos.orders_products WHERE order_id = :order_id"
 };
 
 module.exports = { orderQuerys };
